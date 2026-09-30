@@ -91,7 +91,7 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
     proofProvider: httpClientProofProvider(serviceUris.proverServerUri, new FetchZkConfigProvider(window.location.origin, window.fetch.bind(window))),
     privateStateProvider: levelPrivateStateProvider({
       privateStateStoreName: 'murmur-state',
-      privateStoragePasswordProvider: () => "guest-password-12345",
+      privateStoragePasswordProvider: () => "mUrMuR-gUeSt-pAsSwOrD-94bX2pL",
       accountId: "guest-session",
     }),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
