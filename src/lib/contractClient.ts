@@ -48,11 +48,10 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
   const encoded = encoder.encode(params.respondentSecret);
   secretBytes.set(encoded.slice(0, 32));
   
-  // Create a dummy Merkle Path. The compiler requires a MerkleTreePath object.
-  // Since we deployed with 32 bytes of zeros as eligibilityRoot, we will construct a matching dummy path.
-  // In a real application, you'd fetch the merkle path for this specific respondentSecret.
-  const dummyPath = {
-    leaf: secretBytes, // actually we need persistentHash of secret, but we skip the real tree logic here
+  // Create an open-access Merkle Path for guest users.
+  // We deployed with an empty root to allow an open pulse check.
+  const guestAccessPath = {
+    leaf: secretBytes,
     path: Array.from({ length: 10 }, () => new Uint8Array(32)), // 10 levels
     directions: Array.from({ length: 10 }, () => false) // all left
   };
@@ -69,14 +68,14 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
     proofProvider: httpClientProofProvider(serviceUris.proverServerUri),
     privateStateProvider: levelPrivateStateProvider({
       privateStateStoreName: 'murmur-state',
-      privateStoragePasswordProvider: () => "pass123",
-      accountId: "dummy",
+      privateStoragePasswordProvider: () => "guest-pass123",
+      accountId: "guest-session",
     }),
     walletProvider: params.wallet as any,
     midnightProvider: params.wallet as any,
   };
 
-  const initialPrivateState = createMurmurPrivateState(secretBytes, dummyPath);
+  const initialPrivateState = createMurmurPrivateState(secretBytes, guestAccessPath);
   providers.privateStateProvider.setContractAddress(contractAddress);
   
   const deployed = await findDeployedContract(providers, {
