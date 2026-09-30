@@ -5,9 +5,9 @@ import { witnesses } from "./witnesses.js";
 export * from "./managed/murmur/contract/index.js";
 export * from "./witnesses.js";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 class ContractWrapper {
   constructor() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const ContractClass = ContractModule.Contract || (ContractModule as any).default?.Contract;
     if (!ContractClass) {
       console.error("ContractModule keys:", Object.keys(ContractModule));
