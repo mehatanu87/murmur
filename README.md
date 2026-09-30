@@ -1,6 +1,9 @@
 # Murmur
-![CI](https://github.com/YOUR_USERNAME/murmur/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/mehatanu87/murmur/actions/workflows/ci.yml/badge.svg)](https://github.com/mehatanu87/murmur/actions/workflows/ci.yml)
 > Single-question anonymous pulse checks. Built on Midnight.
+
+## Live Demo
+[https://murmur-rho-five.vercel.app/](https://murmur-rho-five.vercel.app/)
 
 ## Demo Video
 [Watch the 1-minute demo video on Google Drive](https://drive.google.com/file/d/1np10ZW26C3P76MNIuVjhgPXL5Ml2PDzv/view?usp=sharing)

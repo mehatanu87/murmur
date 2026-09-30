@@ -21,13 +21,11 @@ jobs:
         run: npm install
       - name: Compile Compact contract
         run: |
-          if command -v compact >/dev/null 2>&1; then
-            compact compile contracts/murmur.compact managed/murmur
-          else
-            echo "compact CLI not found on runner — skipping compile step."
-            echo "Install via: https://docs.midnight.network"
-          fi
-        continue-on-error: true
+          curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh
+          export PATH="$HOME/.local/bin:$PATH"
+          compact update 0.31.1 || compact update 0.31.0
+          compact --version
+          npm run compact:compile
       - name: Lint
         run: npm run lint
       - name: Run test suite
