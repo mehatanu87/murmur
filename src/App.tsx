@@ -16,6 +16,7 @@ function App() {
           status={wallet.status}
           address={wallet.address}
           walletName={wallet.walletName}
+          error={wallet.error}
           onConnect={wallet.connect}
           onDisconnect={wallet.disconnect}
         />
