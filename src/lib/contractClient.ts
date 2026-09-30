@@ -57,9 +57,31 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
   };
 
   // Get service URLs from wallet
-  const serviceUris = await params.wallet.serviceUriConfig?.();
+  let serviceUris;
+  const anyWallet = params.wallet as any;
+  if (typeof anyWallet.getConfiguration === 'function') {
+    try {
+      const config = await anyWallet.getConfiguration();
+      serviceUris = {
+        nodeUri: config.substrateNodeUri,
+        indexerUri: config.indexerUri,
+        proverServerUri: config.proverServerUri || 'http://127.0.0.1:9999',
+      };
+    } catch (e) {
+      console.error("Error calling getConfiguration on wallet:", e);
+    }
+  } else if (typeof anyWallet.serviceUriConfig === 'function') {
+    try {
+      serviceUris = await anyWallet.serviceUriConfig();
+    } catch (e) {
+      console.error("Error calling serviceUriConfig on wallet:", e);
+    }
+  }
+
   if (!serviceUris) {
-    throw new Error("Connected wallet did not provide service URIs");
+    const errMsg = "Connected wallet did not provide service URIs. Ensure Lace or 1AM is configured for Preprod.";
+    console.error(errMsg, anyWallet);
+    throw new Error(errMsg);
   }
 
   const providers = {
