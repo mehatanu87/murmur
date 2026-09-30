@@ -58,6 +58,7 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
 
   // Get service URLs from wallet
   let serviceUris;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const anyWallet = params.wallet as any;
   if (typeof anyWallet.getConfiguration === 'function') {
     try {
