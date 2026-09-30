@@ -65,8 +65,8 @@ export circuit submitResponse(response: Uint<8>): [] {
   usedNullifiers.insert(nullifier);
 
   const current = responseTally.lookup(disclose(response));
-  responseTally.insert(disclose(response), current + 1);
-  totalResponses = totalResponses + 1;
+  responseTally.insert(disclose(response), (current + 1) as Uint<64>);
+  totalResponses = (totalResponses + 1) as Uint<64>;
 }
 
 export circuit closePulse(): [] {
