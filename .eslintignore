@@ -1,2 +1,4 @@
 node_modules/
 preprod-deployment/
+managed/
+src/lib/murmur-contract/managed/
