@@ -45,61 +45,22 @@ async function main() {
   const walletAddress = await getUnshieldedAddress(logger, walletProvider.wallet);
   console.log(`Wallet Address: ${walletAddress}`);
 
-  console.log("Syncing unshielded wallet with Preprod...");
-  let unshieldedState = await walletProvider.wallet.unshielded.waitForSyncedState();
-  let nightBalance = unshieldedState.balances[unshieldedToken().raw] ?? 0n;
-  console.log(`Current tNIGHT balance: ${nightBalance}`);
-
-  if (nightBalance === 0n) {
-    console.log("Wallet has 0 tNIGHT. Requesting funds from faucet...");
-    if (envConfiguration.faucet) {
-      try {
-        await new FaucetClient(envConfiguration.faucet, logger).requestTokens(walletAddress);
-        console.log("Faucet request sent successfully. Waiting for tokens...");
-      } catch (e: any) {
-        console.warn(`Faucet request warning: ${e.message}`);
-      }
-    }
-    
-    unshieldedState = await Rx.firstValueFrom(
-      walletProvider.wallet.unshielded.state.pipe(
-        Rx.throttleTime(5000),
-        Rx.tap((state) => {
-          const bal = state.balances[unshieldedToken().raw] ?? 0n;
-          console.log(`Waiting for tokens... current balance: ${bal} tNIGHT`);
-        }),
-        Rx.filter((state) => (state.balances[unshieldedToken().raw] ?? 0n) > 0n),
-        Rx.timeout(300000)
-      )
-    );
-    nightBalance = unshieldedState.balances[unshieldedToken().raw] ?? 0n;
-    console.log(`Received funds! New balance: ${nightBalance} tNIGHT`);
-  }
-
-  console.log("Registering DUST generation immediately (skipping full sync)...");
-  const dustTx = await generateDust(logger, seed, unshieldedState, walletProvider.wallet);
-  if (dustTx) {
-    console.log(`Registered DUST generation tx: ${dustTx}`);
-  } else {
-    console.log("DUST already registered.");
-  }
-
-  console.log("Waiting up to 90s for any DUST to become available...");
-  let dustBalance = 0n;
+  console.log("Getting wallet state snapshot (no full sync)...");
+  // Use a 15s snapshot instead of waiting for full sync
+  let unshieldedState: any;
   try {
-    dustBalance = await Rx.firstValueFrom(
-      walletProvider.wallet.state().pipe(
-        Rx.throttleTime(2000),
-        Rx.filter((s) => s.dust.balance(new Date()) > 0n),
-        Rx.map((s) => s.dust.balance(new Date())),
-        Rx.timeout(90000),
-      ),
+    unshieldedState = await Rx.firstValueFrom(
+      walletProvider.wallet.unshielded.state.pipe(Rx.timeout(15000))
     );
-    console.log(`DUST available: ${dustBalance}!`);
   } catch {
-    console.warn("No DUST accrued within 90s — attempting deployment anyway with existing balance.");
+    console.warn("Could not get unshielded state snapshot, using empty state.");
+    unshieldedState = { balances: {} };
   }
-  console.log("Deploying contract...");
+  const nightBalance = unshieldedState.balances[unshieldedToken().raw] ?? 0n;
+  console.log(`Wallet tNIGHT balance (snapshot): ${nightBalance}`);
+
+  // Skip ALL DUST sync — attempt deployment directly
+  console.log("Skipping DUST sync. Deploying contract directly...");
 
   console.log("Initializing providers...");
   const zkConfigProvider = new NodeZkConfigProvider(config.zkConfigPath);
