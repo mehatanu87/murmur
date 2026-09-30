@@ -152,8 +152,9 @@ async function main() {
     // with a question and a merkle tree root of eligible voters. 
     // We will create a dummy voter just to have a valid tree, or use an empty tree root.
     const initialRoot = new Uint8Array(32); // For a real app, you would compute the merkle root here
+    const pulseId = new Uint8Array(32); // A unique ID for the pulse
     console.log("Opening pulse...");
-    await deployed.circuits.openPulse("How was the Midnight demo?", initialRoot);
+    await deployed.circuits.openPulse("How was the Midnight demo?", pulseId, initialRoot);
     const contractAddress = deployed.deployTxData.public.contractAddress;
     console.log("================================================================================");
     console.log("🎉 SUCCESS! CONTRACT DEPLOYED TO PREPROD!");
