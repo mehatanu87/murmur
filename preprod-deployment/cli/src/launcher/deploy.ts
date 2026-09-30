@@ -143,12 +143,17 @@ async function main() {
   let success = false;
   try {
     const initialRoot = new Uint8Array(32); // 32 bytes of zeros
-    
     const deployed = await deployContract(providers, {
         compiledContract: CompiledBBoardContractContract,
-        args: [initialRoot]
+        args: []
     });
     
+    // In order for the pulse to be "open" with valid logic, we need to call openPulse
+    // with a question and a merkle tree root of eligible voters. 
+    // We will create a dummy voter just to have a valid tree, or use an empty tree root.
+    const initialRoot = new Uint8Array(32); // For a real app, you would compute the merkle root here
+    console.log("Opening pulse...");
+    await deployed.circuits.openPulse("How was the Midnight demo?", initialRoot);
     const contractAddress = deployed.deployTxData.public.contractAddress;
     console.log("================================================================================");
     console.log("🎉 SUCCESS! CONTRACT DEPLOYED TO PREPROD!");
