@@ -82,42 +82,50 @@ async function main() {
   
   console.log("Deploying contract...");
   let success = false;
-  try {
-    const initialRoot = new Uint8Array(32); // 32 bytes of zeros — replace with real merkle root
-    const pulseId = new Uint8Array(32);     // unique ID for this pulse
+  const MAX_RETRIES = 5;
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      console.log(`Deployment attempt ${attempt}/${MAX_RETRIES}...`);
+      const initialRoot = new Uint8Array(32);
+      const pulseId = new Uint8Array(32);
 
-    const deployed = await deployContract(providers, {
-        compiledContract: CompiledMurmurContractContract,
-        args: [pulseId, initialRoot]
-    });
+      const deployed = await deployContract(providers, {
+          compiledContract: CompiledMurmurContractContract,
+          args: [pulseId, initialRoot]
+      });
 
-    const contractAddress = deployed.deployTxData.public.contractAddress;
-    console.log("================================================================================");
-    console.log("🎉 SUCCESS! CONTRACT DEPLOYED TO PREPROD!");
-    console.log("CONTRACT_ADDRESS=" + contractAddress);
-    console.log("Contract Address:", contractAddress);
-    console.log("Explorer:", `https://preprod.midnight.network/contract/${contractAddress}`);
-    console.log("================================================================================");
+      const contractAddress = deployed.deployTxData.public.contractAddress;
+      console.log("================================================================================");
+      console.log("🎉 SUCCESS! CONTRACT DEPLOYED TO PREPROD!");
+      console.log("CONTRACT_ADDRESS=" + contractAddress);
+      console.log("Contract Address:", contractAddress);
+      console.log("Explorer:", `https://preprod.midnight.network/contract/${contractAddress}`);
+      console.log("================================================================================");
 
-    const deploymentInfo = {
-      network: "preprod",
-      contractAddress,
-      explorerUrl: `https://preprod.midnight.network/contract/${contractAddress}`,
-      indexer: envConfiguration.indexer,
-      node: envConfiguration.node,
-      deployedAt: new Date().toISOString(),
-    };
+      const deploymentInfo = {
+        network: "preprod",
+        contractAddress,
+        explorerUrl: `https://preprod.midnight.network/contract/${contractAddress}`,
+        indexer: envConfiguration.indexer,
+        node: envConfiguration.node,
+        deployedAt: new Date().toISOString(),
+      };
 
-    fs.writeFileSync('deployment.json', JSON.stringify(deploymentInfo, null, 2));
-    fs.writeFileSync('../../deployed_contract.json', JSON.stringify(deploymentInfo, null, 2));
-    success = true;
-  } catch (err) {
-    console.error("Deployment failed:", err);
-  } finally {
-    await walletProvider.stop();
-    await testEnv.shutdown();
-    process.exit(success ? 0 : 1);
+      fs.writeFileSync('deployment.json', JSON.stringify(deploymentInfo, null, 2));
+      fs.writeFileSync('../../deployed_contract.json', JSON.stringify(deploymentInfo, null, 2));
+      success = true;
+      break;
+    } catch (err: any) {
+      console.error(`Attempt ${attempt} failed:`, err?.message ?? err);
+      if (attempt < MAX_RETRIES) {
+        console.log(`Retrying in 30 seconds...`);
+        await new Promise(resolve => setTimeout(resolve, 30000));
+      }
+    }
   }
+  await walletProvider.stop();
+  await testEnv.shutdown();
+  process.exit(success ? 0 : 1);
 }
 
 main().catch((err) => {
