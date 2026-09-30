@@ -1,0 +1,462 @@
+﻿2026-09-30T08:38:09.7478982Z Current runner version: '2.337.0'
+2026-09-30T08:38:09.7502657Z ##[group]Runner Image Provisioner
+2026-09-30T08:38:09.7503501Z Hosted Compute Agent
+2026-09-30T08:38:09.7504049Z Version: 20260828.587
+2026-09-30T08:38:09.7504683Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-30T08:38:09.7505348Z Build Date: 2026-08-28T16:44:25Z
+2026-09-30T08:38:09.7506050Z Worker ID: {c188866c-feba-4638-8fec-09476aed4486}
+2026-09-30T08:38:09.7506766Z Azure Region: westus3
+2026-09-30T08:38:09.7507362Z ##[endgroup]
+2026-09-30T08:38:09.7509179Z ##[group]Operating System
+2026-09-30T08:38:09.7509801Z Ubuntu
+2026-09-30T08:38:09.7510629Z 24.04.5
+2026-09-30T08:38:09.7511143Z LTS
+2026-09-30T08:38:09.7511649Z ##[endgroup]
+2026-09-30T08:38:09.7512180Z ##[group]Runner Image
+2026-09-30T08:38:09.7512733Z Image: ubuntu-24.04
+2026-09-30T08:38:09.7513238Z Version: 20260920.314.1
+2026-09-30T08:38:09.7514495Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-30T08:38:09.7515904Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-30T08:38:09.7516780Z ##[endgroup]
+2026-09-30T08:38:09.7517916Z ##[group]GITHUB_TOKEN Permissions
+2026-09-30T08:38:09.7520229Z Contents: read
+2026-09-30T08:38:09.7520815Z Metadata: read
+2026-09-30T08:38:09.7521414Z Packages: read
+2026-09-30T08:38:09.7521941Z ##[endgroup]
+2026-09-30T08:38:09.7524090Z Secret source: Actions
+2026-09-30T08:38:09.7525023Z Cache mode: write
+2026-09-30T08:38:09.7525683Z Prepare workflow directory
+2026-09-30T08:38:09.7852660Z Prepare all required actions
+2026-09-30T08:38:09.7901315Z Getting action download info
+2026-09-30T08:38:10.1101682Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-30T08:38:10.1867588Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-09-30T08:38:10.2902760Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-09-30T08:38:10.4154458Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-09-30T08:38:10.6346275Z Complete job name: deploy
+2026-09-30T08:38:10.7125029Z ##[group]Run actions/checkout@v4
+2026-09-30T08:38:10.7125798Z with:
+2026-09-30T08:38:10.7126209Z   repository: mehatanu87/murmur
+2026-09-30T08:38:10.7129884Z   token: ***
+2026-09-30T08:38:10.7130277Z   ssh-strict: true
+2026-09-30T08:38:10.7130677Z   ssh-user: git
+2026-09-30T08:38:10.7131082Z   persist-credentials: true
+2026-09-30T08:38:10.7131522Z   clean: true
+2026-09-30T08:38:10.7131937Z   sparse-checkout-cone-mode: true
+2026-09-30T08:38:10.7132411Z   fetch-depth: 1
+2026-09-30T08:38:10.7132802Z   fetch-tags: false
+2026-09-30T08:38:10.7133214Z   show-progress: true
+2026-09-30T08:38:10.7133613Z   lfs: false
+2026-09-30T08:38:10.7133985Z   submodules: false
+2026-09-30T08:38:10.7134395Z   set-safe-directory: true
+2026-09-30T08:38:10.7134856Z   allow-unsafe-pr-checkout: false
+2026-09-30T08:38:10.7135560Z ##[endgroup]
+2026-09-30T08:38:10.8167066Z Syncing repository: mehatanu87/murmur
+2026-09-30T08:38:10.8170599Z ##[group]Getting Git version info
+2026-09-30T08:38:10.8171880Z Working directory is '/home/runner/work/murmur/murmur'
+2026-09-30T08:38:10.8173706Z [command]/usr/bin/git version
+2026-09-30T08:38:10.8299628Z git version 2.55.0
+2026-09-30T08:38:10.8361819Z ##[endgroup]
+2026-09-30T08:38:10.8371433Z Temporarily overriding HOME='/home/runner/work/_temp/e9c90cd1-4f18-4796-87d4-ce920c774bdf' before making global git config changes
+2026-09-30T08:38:10.8374154Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-30T08:38:10.8376238Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/murmur/murmur
+2026-09-30T08:38:10.8395820Z Deleting the contents of '/home/runner/work/murmur/murmur'
+2026-09-30T08:38:10.8415198Z ##[group]Initializing the repository
+2026-09-30T08:38:10.8419542Z [command]/usr/bin/git init /home/runner/work/murmur/murmur
+2026-09-30T08:38:10.8517220Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-30T08:38:10.8539627Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-30T08:38:10.8559775Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-30T08:38:10.8561197Z hint: call:
+2026-09-30T08:38:10.8561938Z hint:
+2026-09-30T08:38:10.8562816Z hint: 	git config --global init.defaultBranch <name>
+2026-09-30T08:38:10.8563920Z hint:
+2026-09-30T08:38:10.8564963Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-30T08:38:10.8566623Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-30T08:38:10.8567989Z hint:
+2026-09-30T08:38:10.8568971Z hint: 	git branch -m <name>
+2026-09-30T08:38:10.8569842Z hint:
+2026-09-30T08:38:10.8570954Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-30T08:38:10.8572682Z Initialized empty Git repository in /home/runner/work/murmur/murmur/.git/
+2026-09-30T08:38:10.8575553Z [command]/usr/bin/git remote add origin https://github.com/mehatanu87/murmur
+2026-09-30T08:38:10.8590141Z ##[endgroup]
+2026-09-30T08:38:10.8591882Z ##[group]Disabling automatic garbage collection
+2026-09-30T08:38:10.8595438Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-30T08:38:10.8641682Z ##[endgroup]
+2026-09-30T08:38:10.8642867Z ##[group]Setting up auth
+2026-09-30T08:38:10.8644001Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-30T08:38:10.8671980Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-30T08:38:10.8992928Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-30T08:38:10.9025656Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-30T08:38:10.9217981Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-30T08:38:10.9251409Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-30T08:38:10.9428223Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-30T08:38:10.9461793Z ##[endgroup]
+2026-09-30T08:38:10.9462628Z ##[group]Fetching the repository
+2026-09-30T08:38:10.9470570Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2b8e441d02fc58324a2d8967460b024d8b495b90:refs/remotes/origin/main
+2026-09-30T08:38:11.8843248Z From https://github.com/mehatanu87/murmur
+2026-09-30T08:38:11.8844949Z  * [new ref]         2b8e441d02fc58324a2d8967460b024d8b495b90 -> origin/main
+2026-09-30T08:38:11.8849237Z ##[endgroup]
+2026-09-30T08:38:11.8851466Z ##[group]Determining the checkout info
+2026-09-30T08:38:11.8853584Z ##[endgroup]
+2026-09-30T08:38:11.8854717Z [command]/usr/bin/git sparse-checkout disable
+2026-09-30T08:38:11.8901227Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-30T08:38:11.8929193Z ##[group]Checking out the ref
+2026-09-30T08:38:11.8934343Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-09-30T08:38:11.9096002Z Switched to a new branch 'main'
+2026-09-30T08:38:11.9103115Z branch 'main' set up to track 'origin/main'.
+2026-09-30T08:38:11.9107997Z ##[endgroup]
+2026-09-30T08:38:11.9146291Z [command]/usr/bin/git log -1 --format=%H
+2026-09-30T08:38:11.9167677Z 2b8e441d02fc58324a2d8967460b024d8b495b90
+2026-09-30T08:38:11.9506166Z ##[group]Run actions/setup-node@v4
+2026-09-30T08:38:11.9507294Z with:
+2026-09-30T08:38:11.9508198Z   node-version: 22
+2026-09-30T08:38:11.9509078Z   always-auth: false
+2026-09-30T08:38:11.9510141Z   check-latest: false
+2026-09-30T08:38:11.9519069Z   token: ***
+2026-09-30T08:38:11.9519883Z ##[endgroup]
+2026-09-30T08:38:12.0930380Z Found in cache @ /opt/hostedtoolcache/node/22.23.2/x64
+2026-09-30T08:38:12.0935155Z (node:2248) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T08:38:12.0939483Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T08:38:12.0943029Z ##[group]Environment details
+2026-09-30T08:38:14.7864384Z node: v22.23.2
+2026-09-30T08:38:14.7865868Z npm: 10.9.8
+2026-09-30T08:38:14.7866563Z yarn: 1.22.22
+2026-09-30T08:38:14.7868724Z ##[endgroup]
+2026-09-30T08:38:14.8037324Z ##[group]Run actions/cache@v4
+2026-09-30T08:38:14.8037679Z with:
+2026-09-30T08:38:14.8038158Z   path: preprod-deployment/cli/murmur-private-state
+2026-09-30T08:38:14.8038541Z   key: wallet-db-preprod-mehatanu87
+2026-09-30T08:38:14.8038881Z   restore-keys: wallet-db-preprod-
+
+2026-09-30T08:38:14.8039208Z   enableCrossOsArchive: false
+2026-09-30T08:38:14.8039540Z   fail-on-cache-miss: false
+2026-09-30T08:38:14.8039816Z   lookup-only: false
+2026-09-30T08:38:14.8040073Z   save-always: false
+2026-09-30T08:38:14.8040331Z ##[endgroup]
+2026-09-30T08:38:14.9071540Z (node:2280) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T08:38:14.9073388Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T08:38:15.1379165Z Cache not found for input keys: wallet-db-preprod-mehatanu87, wallet-db-preprod-
+2026-09-30T08:38:15.1474423Z ##[group]Run cd preprod-deployment
+2026-09-30T08:38:15.1474916Z [36;1mcd preprod-deployment[0m
+2026-09-30T08:38:15.1475247Z [36;1mnpm install[0m
+2026-09-30T08:38:15.1475548Z [36;1mnpm install --no-save tsx[0m
+2026-09-30T08:38:15.1475950Z [36;1mnode infra/scripts/patch-wallet-sdk.mjs[0m
+2026-09-30T08:38:15.1663888Z shell: /usr/bin/bash -e {0}
+2026-09-30T08:38:15.1664253Z ##[endgroup]
+2026-09-30T08:38:16.8578670Z npm warn EBADENGINE Unsupported engine {
+2026-09-30T08:38:16.8579551Z npm warn EBADENGINE   package: 'murmur-preprod-deployment@0.1.0',
+2026-09-30T08:38:16.8580077Z npm warn EBADENGINE   required: { node: '>=24.11.1' },
+2026-09-30T08:38:16.8580568Z npm warn EBADENGINE   current: { node: 'v22.23.2', npm: '10.9.8' }
+2026-09-30T08:38:16.8581059Z npm warn EBADENGINE }
+2026-09-30T08:38:18.0446915Z npm warn deprecated whatwg-encoding@2.0.0: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+2026-09-30T08:38:20.3930350Z npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+2026-09-30T08:38:21.6701815Z npm warn deprecated @substrate/connect@0.8.11: versions below 1.x are no longer maintained
+2026-09-30T08:38:22.9850115Z npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+2026-09-30T08:38:23.2960713Z npm warn deprecated uuid@10.0.0: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+2026-09-30T08:38:23.6458582Z npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-09-30T08:38:49.7808411Z 
+2026-09-30T08:38:49.7810702Z > murmur-preprod-deployment@0.1.0 postinstall
+2026-09-30T08:38:49.7811451Z > npx patch-package --patch-dir infra/patches
+2026-09-30T08:38:49.7811771Z 
+2026-09-30T08:38:50.2108774Z patch-package 8.0.1
+2026-09-30T08:38:50.2109932Z Applying patches...
+2026-09-30T08:38:50.2114364Z No patch files found
+2026-09-30T08:38:50.2515034Z 
+2026-09-30T08:38:50.2515847Z added 948 packages, and audited 953 packages in 35s
+2026-09-30T08:38:50.2516330Z 
+2026-09-30T08:38:50.2516629Z 247 packages are looking for funding
+2026-09-30T08:38:50.2517775Z   run `npm fund` for details
+2026-09-30T08:38:50.3384032Z 
+2026-09-30T08:38:50.3384926Z 17 vulnerabilities (8 moderate, 7 high, 2 critical)
+2026-09-30T08:38:50.3385374Z 
+2026-09-30T08:38:50.3385755Z To address issues that do not require attention, run:
+2026-09-30T08:38:50.3386298Z   npm audit fix
+2026-09-30T08:38:50.3386500Z 
+2026-09-30T08:38:50.3386973Z To address all issues possible (including breaking changes), run:
+2026-09-30T08:38:50.3387678Z   npm audit fix --force
+2026-09-30T08:38:50.3387935Z 
+2026-09-30T08:38:50.3388854Z Some issues need review, and may require choosing
+2026-09-30T08:38:50.3389397Z a different dependency.
+2026-09-30T08:38:50.3389555Z 
+2026-09-30T08:38:50.3389705Z Run `npm audit` for details.
+2026-09-30T08:38:51.8019707Z npm warn EBADENGINE Unsupported engine {
+2026-09-30T08:38:51.8020704Z npm warn EBADENGINE   package: 'murmur-preprod-deployment@0.1.0',
+2026-09-30T08:38:51.8021587Z npm warn EBADENGINE   required: { node: '>=24.11.1' },
+2026-09-30T08:38:51.8022469Z npm warn EBADENGINE   current: { node: 'v22.23.2', npm: '10.9.8' }
+2026-09-30T08:38:51.8023147Z npm warn EBADENGINE }
+2026-09-30T08:38:52.9469281Z 
+2026-09-30T08:38:52.9470161Z added 3 packages, and audited 956 packages in 3s
+2026-09-30T08:38:52.9470548Z 
+2026-09-30T08:38:52.9470800Z 247 packages are looking for funding
+2026-09-30T08:38:52.9471237Z   run `npm fund` for details
+2026-09-30T08:38:53.0285427Z 
+2026-09-30T08:38:53.0286715Z 17 vulnerabilities (8 moderate, 7 high, 2 critical)
+2026-09-30T08:38:53.0287181Z 
+2026-09-30T08:38:53.0287987Z To address issues that do not require attention, run:
+2026-09-30T08:38:53.0288918Z   npm audit fix
+2026-09-30T08:38:53.0289135Z 
+2026-09-30T08:38:53.0289524Z To address all issues possible (including breaking changes), run:
+2026-09-30T08:38:53.0290087Z   npm audit fix --force
+2026-09-30T08:38:53.0290314Z 
+2026-09-30T08:38:53.0290599Z Some issues need review, and may require choosing
+2026-09-30T08:38:53.0291116Z a different dependency.
+2026-09-30T08:38:53.0291352Z 
+2026-09-30T08:38:53.0291573Z Run `npm audit` for details.
+2026-09-30T08:38:53.0753312Z Successfully patched CoreWallet.js: freed Rust WASM objects on each sync batch!
+2026-09-30T08:38:53.0757146Z Successfully patched RunningV1Variant.js: removed unbounded fiber memory leak!
+2026-09-30T08:38:53.0816900Z ##[group]Run cp contracts/murmur.compact preprod-deployment/contracts/src/murmur.compact
+2026-09-30T08:38:53.0817525Z [36;1mcp contracts/murmur.compact preprod-deployment/contracts/src/murmur.compact[0m
+2026-09-30T08:38:53.0857073Z shell: /usr/bin/bash -e {0}
+2026-09-30T08:38:53.0857340Z ##[endgroup]
+2026-09-30T08:38:53.0965274Z ##[group]Run curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh
+2026-09-30T08:38:53.0966433Z [36;1mcurl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh[0m
+2026-09-30T08:38:53.0967159Z [36;1mexport PATH="$HOME/.local/bin:$PATH"[0m
+2026-09-30T08:38:53.0967577Z [36;1mcompact update 0.31.1 || compact update 0.31.0[0m
+2026-09-30T08:38:53.0967936Z [36;1mcompact --version[0m
+2026-09-30T08:38:53.0968482Z [36;1mcd preprod-deployment/contracts[0m
+2026-09-30T08:38:53.0968906Z [36;1mcompact compile src/murmur.compact ./src/managed/murmur[0m
+2026-09-30T08:38:53.1005190Z shell: /usr/bin/bash -e {0}
+2026-09-30T08:38:53.1005454Z env:
+2026-09-30T08:38:53.1007995Z   GITHUB_TOKEN: ***
+2026-09-30T08:38:53.1008486Z ##[endgroup]
+2026-09-30T08:38:53.5949364Z downloading compact 0.5.3 x86_64-unknown-linux-musl-static
+2026-09-30T08:38:54.2222701Z installing to /home/runner/.local/bin
+2026-09-30T08:38:54.2253711Z   compact
+2026-09-30T08:38:54.2254104Z everything's installed!
+2026-09-30T08:38:55.8378717Z compact: x86_64-unknown-linux-musl -- 0.31.1 -- installed
+2026-09-30T08:38:55.8381786Z compact: x86_64-unknown-linux-musl -- 0.31.1 -- default.
+2026-09-30T08:38:55.8410026Z compact 0.5.3
+2026-09-30T08:38:56.1543862Z Compiling 2 circuits:
+2026-09-30T08:39:03.5613188Z ##[group]Run cd preprod-deployment/contracts
+2026-09-30T08:39:03.5613571Z [36;1mcd preprod-deployment/contracts[0m
+2026-09-30T08:39:03.5613848Z [36;1mnpm run build[0m
+2026-09-30T08:39:03.5650932Z shell: /usr/bin/bash -e {0}
+2026-09-30T08:39:03.5651199Z ##[endgroup]
+2026-09-30T08:39:03.6797688Z 
+2026-09-30T08:39:03.6798308Z > build
+2026-09-30T08:39:03.6799445Z > rm -rf dist && tsc --project tsconfig.build.json && cp -Rf ./src/managed ./dist/managed && cp ./src/murmur.compact ./dist
+2026-09-30T08:39:03.6799965Z 
+2026-09-30T08:39:05.3234496Z ##[group]Run sudo swapoff -a || true
+2026-09-30T08:39:05.3235002Z [36;1msudo swapoff -a || true[0m
+2026-09-30T08:39:05.3235477Z [36;1msudo rm -f /swapfile /swapfile_extra || true[0m
+2026-09-30T08:39:05.3236278Z [36;1msudo fallocate -l 10G /swapfile_extra || sudo dd if=/dev/zero of=/swapfile_extra bs=1M count=10240[0m
+2026-09-30T08:39:05.3236998Z [36;1msudo chmod 600 /swapfile_extra[0m
+2026-09-30T08:39:05.3237456Z [36;1msudo mkswap /swapfile_extra[0m
+2026-09-30T08:39:05.3237905Z [36;1msudo swapon /swapfile_extra[0m
+2026-09-30T08:39:05.3238465Z [36;1mfree -h[0m
+2026-09-30T08:39:05.3296803Z shell: /usr/bin/bash -e {0}
+2026-09-30T08:39:05.3297216Z ##[endgroup]
+2026-09-30T08:39:05.3837654Z Setting up swapspace version 1, size = 10 GiB (10737414144 bytes)
+2026-09-30T08:39:05.3838551Z no label, UUID=970a390d-35cc-4944-95de-a5671930fb7b
+2026-09-30T08:39:05.3931391Z                total        used        free      shared  buff/cache   available
+2026-09-30T08:39:05.3932438Z Mem:            15Gi       1.2Gi        10Gi        45Mi       4.7Gi        14Gi
+2026-09-30T08:39:05.3933232Z Swap:            9Gi          0B         9Gi
+2026-09-30T08:39:05.3966027Z ##[group]Run cd preprod-deployment/cli
+2026-09-30T08:39:05.3966373Z [36;1mcd preprod-deployment/cli[0m
+2026-09-30T08:39:05.3966725Z [36;1mnpx tsx src/launcher/deploy.ts[0m
+2026-09-30T08:39:05.4005333Z shell: /usr/bin/bash -e {0}
+2026-09-30T08:39:05.4005591Z env:
+2026-09-30T08:39:05.4005872Z   NODE_OPTIONS: --max-old-space-size=8192 --expose-gc
+2026-09-30T08:39:05.4006324Z   WALLET_SEED: 929dff99d9387db318b3bc54add98c5ce4fcc3386445a224e3332fe19a429610
+2026-09-30T08:39:05.4006713Z ##[endgroup]
+2026-09-30T08:39:08.9727677Z Starting deployment to Preprod...
+2026-09-30T08:39:09.0027262Z Starting environment...
+2026-09-30T08:39:09.0064664Z [08:39:09.002] [32mINFO[39m (3184): [36mStarting test environment... [39m
+2026-09-30T08:39:09.0071618Z [08:39:09.006] [32mINFO[39m (3184): [36mStarting proof server: path='/home/runner/work/murmur/murmur/preprod-deployment/cli', file=proof-server.yml, networkId=undefined, uid=7011509014600625[39m
+2026-09-30T08:39:19.1337511Z [08:39:19.132] [32mINFO[39m (3184): [36mTest environment configuration: {"walletNetworkId":"preprod","networkId":"preprod","indexer":"https://indexer.preprod.midnight.network/api/v4/graphql","indexerWS":"wss://indexer.preprod.midnight.network/api/v4/graphql/ws","node":"https://rpc.preprod.midnight.network","nodeWS":"wss://rpc.preprod.midnight.network","faucet":"https://midnight-tmnight-preprod.nethermind.dev/","proofServer":"http://localhost:32769"}[39m
+2026-09-30T08:39:19.1340031Z [08:39:19.133] [32mINFO[39m (3184): [36mPerforming env health check[39m
+2026-09-30T08:39:20.1528863Z Notice: Public faucet is temporarily offline (503), but node, indexer, and proof server are healthy. Continuing with funded wallet...
+2026-09-30T08:39:20.1530373Z Building wallet provider...
+2026-09-30T08:39:20.2273589Z [08:39:20.226] [32mINFO[39m (3184): [36mCreating dust wallet with params: {"indexerClientConnection":{"indexerHttpUrl":"https://indexer.preprod.midnight.network/api/v4/graphql","indexerWsUrl":"wss://indexer.preprod.midnight.network/api/v4/graphql/ws"},"provingServerUrl":"http://localhost:32769/","networkId":"preprod","relayURL":"wss://rpc.preprod.midnight.network/","txHistoryStorage":{},"costParameters":{"ledgerParams":{"__wbg_ptr":4654560},"additionalFeeOverhead":"1000","feeBlocksMargin":5},"batchUpdates":{"size":5000,"timeout":10,"spacing":0}}[39m
+2026-09-30T08:39:20.2968692Z Wallet Address: mn_addr_preprod1smf7nal5lhg83frj2aegsjrpwqrzu4a6z8vtg9qcus65gj87f7rq2myp7n
+2026-09-30T08:39:20.2969280Z Syncing unshielded wallet with Preprod...
+2026-09-30T08:39:20.9450506Z Current tNIGHT balance: 5000000000
+2026-09-30T08:39:20.9451406Z Syncing DUST wallet with Preprod (fast batch sync)...
+2026-09-30T08:39:25.7729574Z 2026-09-30 08:39:25        RPC-CORE: subscribeRuntimeVersion(): RuntimeVersion:: disconnected from wss://rpc.preprod.midnight.network/: 1000:: Normal Closure
+2026-09-30T08:39:25.7731921Z 2026-09-30 08:39:25        RPC-CORE: subscribeRuntimeVersion(): RuntimeVersion:: disconnected from wss://rpc.preprod.midnight.network/: 1000:: Normal Closure
+2026-09-30T08:39:26.1042771Z DUST sync progress: 0% (applied: 2513 / 1575618, heap: 126MB)
+2026-09-30T08:39:52.1305456Z DUST sync progress: 1% (applied: 20587 / 1575618, heap: 123MB)
+2026-09-30T08:40:07.4416737Z DUST sync progress: 2% (applied: 32896 / 1575618, heap: 125MB)
+2026-09-30T08:40:34.1624119Z DUST sync progress: 3% (applied: 51530 / 1575618, heap: 131MB)
+2026-09-30T08:40:50.3789664Z DUST sync progress: 4% (applied: 63419 / 1575618, heap: 134MB)
+2026-09-30T08:41:22.3749505Z DUST sync progress: 5% (applied: 81018 / 1575618, heap: 130MB)
+2026-09-30T08:41:50.3937705Z DUST sync progress: 6% (applied: 96861 / 1575618, heap: 124MB)
+2026-09-30T08:42:18.2239425Z DUST sync progress: 7% (applied: 111505 / 1575618, heap: 138MB)
+2026-09-30T08:42:45.5572870Z DUST sync progress: 8% (applied: 126193 / 1575618, heap: 125MB)
+2026-09-30T08:43:20.0539969Z DUST sync progress: 9% (applied: 143913 / 1575618, heap: 137MB)
+2026-09-30T08:43:48.6240935Z DUST sync progress: 10% (applied: 158871 / 1575618, heap: 133MB)
+2026-09-30T08:44:05.5340913Z Wallet.Sync: [object Object]
+2026-09-30T08:44:05.5342451Z     at file:///home/runner/work/murmur/murmur/preprod-deployment/node_modules/@midnight-ntwrk/wallet-sdk-dust-wallet/dist/v1/Sync.js:115:240
+2026-09-30T08:44:05.5344491Z     at e (/home/runner/work/murmur/murmur/preprod-deployment/node_modules/effect/src/internal/cause.ts:368:45)
+2026-09-30T08:44:05.5346231Z     at error (/home/runner/work/murmur/murmur/preprod-deployment/node_modules/effect/src/internal/cause.ts:381:24)
+2026-09-30T08:44:05.5347951Z     at Object.failCase (/home/runner/work/murmur/murmur/preprod-deployment/node_modules/effect/src/internal/cause.ts:748:29)
+2026-09-30T08:44:05.5352193Z     at <anonymous> (/home/runner/work/murmur/murmur/preprod-deployment/node_modules/effect/src/internal/cause.ts:805:42)
+2026-09-30T08:44:05.5364191Z     at <anonymous> (/home/runner/work/murmur/murmur/preprod-deployment/node_modules/effect/src/Function.ts:255:18)
+2026-09-30T08:44:05.5366032Z     at <anonymous> (/home/runner/work/murmur/murmur/preprod-deployment/node_modules/effect/src/internal/cause.ts:746:10)
+2026-09-30T08:44:05.5367669Z     at <anonymous> (/home/runner/work/murmur/murmur/preprod-deployment/node_modules/effect/src/Function.ts:245:18)
+2026-09-30T08:44:05.5369491Z     at <anonymous> (/home/runner/work/murmur/murmur/preprod-deployment/node_modules/effect/src/internal/cause.ts:379:3)
+2026-09-30T08:44:05.5371164Z     at <anonymous> (/home/runner/work/murmur/murmur/preprod-deployment/node_modules/effect/src/Function.ts:245:18) {
+2026-09-30T08:44:05.5372250Z   _tag: 'Wallet.Sync'
+2026-09-30T08:44:05.5372760Z }
+2026-09-30T08:44:20.9897547Z DUST sync progress: 11% (applied: 174519 / 1575618, heap: 119MB)
+2026-09-30T08:44:51.8269265Z DUST sync progress: 12% (applied: 189538 / 1575618, heap: 119MB)
+2026-09-30T08:45:22.7250666Z DUST sync progress: 13% (applied: 205043 / 1575619, heap: 125MB)
+2026-09-30T08:45:58.6571006Z DUST sync progress: 14% (applied: 223268 / 1575619, heap: 125MB)
+2026-09-30T08:46:24.9147892Z DUST sync progress: 15% (applied: 238459 / 1575619, heap: 127MB)
+2026-09-30T08:46:50.9397655Z DUST sync progress: 16% (applied: 252674 / 1575619, heap: 121MB)
+2026-09-30T08:47:22.1367713Z DUST sync progress: 17% (applied: 267988 / 1575619, heap: 132MB)
+2026-09-30T08:47:53.8453683Z DUST sync progress: 18% (applied: 285669 / 1575619, heap: 124MB)
+2026-09-30T08:48:25.2707737Z DUST sync progress: 19% (applied: 301618 / 1575619, heap: 131MB)
+2026-09-30T08:48:51.6868368Z DUST sync progress: 20% (applied: 315137 / 1575619, heap: 122MB)
+2026-09-30T08:49:24.0049293Z DUST sync progress: 21% (applied: 332219 / 1575619, heap: 124MB)
+2026-09-30T08:49:55.5794795Z DUST sync progress: 22% (applied: 348954 / 1575619, heap: 128MB)
+2026-09-30T08:50:21.6986613Z DUST sync progress: 23% (applied: 364784 / 1575619, heap: 130MB)
+2026-09-30T08:50:47.7406675Z DUST sync progress: 24% (applied: 381064 / 1575619, heap: 127MB)
+2026-09-30T08:51:09.1776841Z DUST sync progress: 25% (applied: 395100 / 1575619, heap: 125MB)
+2026-09-30T08:51:35.8277721Z DUST sync progress: 26% (applied: 412051 / 1575619, heap: 142MB)
+2026-09-30T08:52:03.1522498Z DUST sync progress: 27% (applied: 427310 / 1575619, heap: 135MB)
+2026-09-30T08:52:29.8123464Z DUST sync progress: 28% (applied: 442429 / 1575620, heap: 129MB)
+2026-09-30T08:52:57.0147053Z DUST sync progress: 29% (applied: 458868 / 1575620, heap: 126MB)
+2026-09-30T08:53:24.6335830Z DUST sync progress: 30% (applied: 473577 / 1575620, heap: 127MB)
+2026-09-30T08:53:51.7719428Z DUST sync progress: 31% (applied: 489311 / 1575620, heap: 137MB)
+2026-09-30T08:54:19.0470584Z DUST sync progress: 32% (applied: 505254 / 1575620, heap: 134MB)
+2026-09-30T08:54:46.1579427Z DUST sync progress: 33% (applied: 521009 / 1575625, heap: 136MB)
+2026-09-30T08:55:13.9059945Z DUST sync progress: 34% (applied: 538968 / 1575625, heap: 127MB)
+2026-09-30T08:55:35.6569046Z DUST sync progress: 35% (applied: 552291 / 1575625, heap: 128MB)
+2026-09-30T08:56:03.4709378Z DUST sync progress: 36% (applied: 569635 / 1575625, heap: 134MB)
+2026-09-30T08:56:24.5193423Z DUST sync progress: 37% (applied: 583433 / 1575626, heap: 133MB)
+2026-09-30T08:56:51.9851310Z DUST sync progress: 38% (applied: 600390 / 1575626, heap: 121MB)
+2026-09-30T08:57:13.3198440Z DUST sync progress: 39% (applied: 614914 / 1575626, heap: 137MB)
+2026-09-30T08:57:40.8085766Z DUST sync progress: 40% (applied: 631916 / 1575626, heap: 134MB)
+2026-09-30T08:58:08.1536334Z DUST sync progress: 41% (applied: 649415 / 1575626, heap: 132MB)
+2026-09-30T08:58:34.9094872Z DUST sync progress: 42% (applied: 663034 / 1575626, heap: 128MB)
+2026-09-30T08:59:01.7850225Z DUST sync progress: 43% (applied: 678220 / 1575626, heap: 126MB)
+2026-09-30T08:59:28.7257879Z DUST sync progress: 44% (applied: 695549 / 1575626, heap: 136MB)
+2026-09-30T08:59:51.1458295Z DUST sync progress: 45% (applied: 709735 / 1575626, heap: 131MB)
+2026-09-30T09:00:18.5997164Z DUST sync progress: 46% (applied: 727070 / 1575626, heap: 120MB)
+2026-09-30T09:00:40.7405795Z DUST sync progress: 47% (applied: 740961 / 1575626, heap: 129MB)
+2026-09-30T09:01:08.5049564Z DUST sync progress: 48% (applied: 758804 / 1575627, heap: 121MB)
+2026-09-30T09:01:30.9217601Z DUST sync progress: 49% (applied: 773249 / 1575627, heap: 132MB)
+2026-09-30T09:01:58.3979207Z DUST sync progress: 50% (applied: 790777 / 1575627, heap: 129MB)
+2026-09-30T09:02:21.2129553Z DUST sync progress: 51% (applied: 804847 / 1575627, heap: 127MB)
+2026-09-30T09:02:49.0553731Z DUST sync progress: 52% (applied: 822650 / 1575627, heap: 122MB)
+2026-09-30T09:03:11.8070840Z DUST sync progress: 53% (applied: 837096 / 1575627, heap: 127MB)
+2026-09-30T09:03:34.5726904Z DUST sync progress: 54% (applied: 852069 / 1575627, heap: 136MB)
+2026-09-30T09:04:01.3480060Z DUST sync progress: 55% (applied: 868027 / 1575627, heap: 131MB)
+2026-09-30T09:04:28.4960113Z DUST sync progress: 56% (applied: 883348 / 1575627, heap: 136MB)
+2026-09-30T09:04:57.3676021Z DUST sync progress: 57% (applied: 898763 / 1575627, heap: 129MB)
+2026-09-30T09:05:30.0410086Z DUST sync progress: 58% (applied: 916669 / 1575628, heap: 118MB)
+2026-09-30T09:05:56.8147838Z DUST sync progress: 59% (applied: 931852 / 1575628, heap: 131MB)
+2026-09-30T09:06:24.6235828Z DUST sync progress: 60% (applied: 948056 / 1575628, heap: 139MB)
+2026-09-30T09:06:48.8622307Z DUST sync progress: 61% (applied: 962099 / 1575628, heap: 126MB)
+2026-09-30T09:07:18.6224805Z DUST sync progress: 62% (applied: 979629 / 1575628, heap: 132MB)
+2026-09-30T09:07:46.3960334Z DUST sync progress: 63% (applied: 995441 / 1575628, heap: 125MB)
+2026-09-30T09:08:13.1533876Z DUST sync progress: 64% (applied: 1011071 / 1575628, heap: 128MB)
+2026-09-30T09:08:34.9796455Z DUST sync progress: 65% (applied: 1024504 / 1575628, heap: 129MB)
+2026-09-30T09:09:03.8143857Z DUST sync progress: 66% (applied: 1040992 / 1575629, heap: 125MB)
+2026-09-30T09:09:31.9324617Z DUST sync progress: 67% (applied: 1057464 / 1575629, heap: 124MB)
+2026-09-30T09:09:59.2714103Z DUST sync progress: 68% (applied: 1073686 / 1575629, heap: 131MB)
+2026-09-30T09:10:26.2169551Z DUST sync progress: 69% (applied: 1089743 / 1575629, heap: 141MB)
+2026-09-30T09:10:48.6138644Z DUST sync progress: 70% (applied: 1103722 / 1575629, heap: 123MB)
+2026-09-30T09:11:20.0058411Z DUST sync progress: 71% (applied: 1121948 / 1575629, heap: 131MB)
+2026-09-30T09:11:43.8342176Z DUST sync progress: 72% (applied: 1136371 / 1575629, heap: 122MB)
+2026-09-30T09:12:07.7344326Z DUST sync progress: 73% (applied: 1150912 / 1575629, heap: 135MB)
+2026-09-30T09:12:36.0168222Z DUST sync progress: 74% (applied: 1168921 / 1575629, heap: 122MB)
+2026-09-30T09:12:59.0210095Z DUST sync progress: 75% (applied: 1183786 / 1575629, heap: 130MB)
+2026-09-30T09:13:28.1022175Z DUST sync progress: 76% (applied: 1200877 / 1575629, heap: 133MB)
+2026-09-30T09:13:52.1743960Z DUST sync progress: 77% (applied: 1216474 / 1575629, heap: 130MB)
+2026-09-30T09:14:15.6959260Z DUST sync progress: 78% (applied: 1230934 / 1575629, heap: 143MB)
+2026-09-30T09:14:38.4772384Z DUST sync progress: 79% (applied: 1245150 / 1575629, heap: 135MB)
+2026-09-30T09:15:07.0091421Z DUST sync progress: 80% (applied: 1262842 / 1575629, heap: 131MB)
+2026-09-30T09:15:30.0191877Z DUST sync progress: 81% (applied: 1278601 / 1575629, heap: 122MB)
+2026-09-30T09:15:53.4643433Z DUST sync progress: 82% (applied: 1293153 / 1575632, heap: 136MB)
+2026-09-30T09:16:22.0839605Z DUST sync progress: 83% (applied: 1310819 / 1575633, heap: 134MB)
+2026-09-30T09:16:44.7755857Z DUST sync progress: 84% (applied: 1324918 / 1575633, heap: 130MB)
+2026-09-30T09:17:13.5530658Z DUST sync progress: 85% (applied: 1342240 / 1575633, heap: 130MB)
+2026-09-30T09:17:36.8653990Z DUST sync progress: 86% (applied: 1357136 / 1575633, heap: 130MB)
+2026-09-30T09:18:00.0580831Z DUST sync progress: 87% (applied: 1371476 / 1575633, heap: 129MB)
+2026-09-30T09:18:24.1719378Z DUST sync progress: 88% (applied: 1386896 / 1575634, heap: 145MB)
+2026-09-30T09:18:48.2615353Z DUST sync progress: 89% (applied: 1402579 / 1575634, heap: 132MB)
+2026-09-30T09:19:13.3476114Z DUST sync progress: 90% (applied: 1419412 / 1575634, heap: 133MB)
+2026-09-30T09:19:33.8289226Z DUST sync progress: 91% (applied: 1434030 / 1575634, heap: 129MB)
+2026-09-30T09:19:59.2942524Z DUST sync progress: 92% (applied: 1452097 / 1575634, heap: 142MB)
+2026-09-30T09:20:23.8646983Z DUST sync progress: 93% (applied: 1468563 / 1575635, heap: 137MB)
+2026-09-30T09:20:47.9443222Z DUST sync progress: 94% (applied: 1484044 / 1575635, heap: 143MB)
+2026-09-30T09:21:12.1306099Z DUST sync progress: 95% (applied: 1499694 / 1575635, heap: 141MB)
+2026-09-30T09:21:36.1049366Z DUST sync progress: 96% (applied: 1515684 / 1575635, heap: 139MB)
+2026-09-30T09:21:55.3986463Z DUST sync progress: 97% (applied: 1528642 / 1575635, heap: 132MB)
+2026-09-30T09:22:24.6815159Z DUST sync progress: 98% (applied: 1547284 / 1575636, heap: 134MB)
+2026-09-30T09:22:43.6349365Z DUST sync progress: 99% (applied: 1560062 / 1575636, heap: 134MB)
+2026-09-30T09:23:05.0689348Z DUST wallet fully synchronized!
+2026-09-30T09:23:05.0724505Z Checking / Registering DUST generation...
+2026-09-30T09:23:05.0799833Z DUST already registered.
+2026-09-30T09:23:05.0800741Z Waiting for DUST accrual from registered NIGHT...
+2026-09-30T09:23:05.0856510Z DUST available: 21443151274999977977! Deploying contract...
+2026-09-30T09:23:05.0868806Z Initializing providers...
+2026-09-30T09:23:05.0900672Z Deploying contract...
+2026-09-30T09:23:34.6948426Z ================================================================================
+2026-09-30T09:23:34.6949574Z 🎉 SUCCESS! CONTRACT DEPLOYED TO PREPROD!
+2026-09-30T09:23:34.6950101Z CONTRACT_ADDRESS=b8e3ad1dedd7ef53c22545ba10b3e6a3dae01041ff72429d9fe85f59a520430b
+2026-09-30T09:23:34.6950751Z Contract Address: b8e3ad1dedd7ef53c22545ba10b3e6a3dae01041ff72429d9fe85f59a520430b
+2026-09-30T09:23:34.6951706Z Explorer: https://preprod.midnight.network/contract/b8e3ad1dedd7ef53c22545ba10b3e6a3dae01041ff72429d9fe85f59a520430b
+2026-09-30T09:23:34.6952361Z ================================================================================
+2026-09-30T09:23:34.7109670Z [09:23:34.708] [32mINFO[39m (3184): [36mShutting down test environment...[39m
+2026-09-30T09:23:35.7369253Z ##[group]Run actions/cache/save@v4
+2026-09-30T09:23:35.7369515Z with:
+2026-09-30T09:23:35.7369758Z   path: preprod-deployment/cli/murmur-private-state
+2026-09-30T09:23:35.7370089Z   key: wallet-db-preprod-mehatanu87
+2026-09-30T09:23:35.7370365Z   enableCrossOsArchive: false
+2026-09-30T09:23:35.7370637Z ##[endgroup]
+2026-09-30T09:23:35.8368497Z (node:5066) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T09:23:35.8369844Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T09:23:35.8471990Z [warning]Path Validation Error: Path(s) specified in the action for caching do(es) not exist, hence no cache is being saved.
+2026-09-30T09:23:35.8492919Z ##[warning]Cache save failed.
+2026-09-30T09:23:35.8585994Z ##[group]Run actions/upload-artifact@v4
+2026-09-30T09:23:35.8586278Z with:
+2026-09-30T09:23:35.8586476Z   name: deployment-info
+2026-09-30T09:23:35.8586809Z   path: preprod-deployment/cli/deployment.json
+deployed_contract.json
+
+2026-09-30T09:23:35.8587206Z   if-no-files-found: warn
+2026-09-30T09:23:35.8587444Z   compression-level: 6
+2026-09-30T09:23:35.8587659Z   overwrite: false
+2026-09-30T09:23:35.8587878Z   include-hidden-files: false
+2026-09-30T09:23:35.8588358Z ##[endgroup]
+2026-09-30T09:23:36.0217837Z (node:5079) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T09:23:36.0219437Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T09:23:36.0290814Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-09-30T09:23:36.0293230Z The least common ancestor is /home/runner/work/murmur/murmur. This will be the root directory of the artifact
+2026-09-30T09:23:36.0294564Z With the provided path, there will be 2 files uploaded
+2026-09-30T09:23:36.0299704Z Artifact name is valid!
+2026-09-30T09:23:36.0300461Z Root directory input is valid!
+2026-09-30T09:23:36.3698559Z Beginning upload of artifact content to blob storage
+2026-09-30T09:23:36.3889592Z (node:5079) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-30T09:23:36.6223430Z Uploaded bytes 742
+2026-09-30T09:23:36.6873234Z Finished uploading artifact content to blob storage!
+2026-09-30T09:23:36.6874276Z SHA256 digest of uploaded artifact zip is 13a5fb902435912c8ed201286f644b898d33e2083437539c636ef155acfe7035
+2026-09-30T09:23:36.6878916Z Finalizing artifact upload
+2026-09-30T09:23:36.9092703Z Artifact deployment-info.zip successfully finalized. Artifact ID 11087412341
+2026-09-30T09:23:36.9093801Z Artifact deployment-info has been successfully uploaded! Final size is 742 bytes. Artifact ID is 11087412341
+2026-09-30T09:23:36.9099296Z Artifact download URL: https://github.com/mehatanu87/murmur/actions/runs/36690923237/artifacts/11087412341
+2026-09-30T09:23:36.9245237Z Post job cleanup.
+2026-09-30T09:23:37.0339155Z (node:5091) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T09:23:37.0339911Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T09:23:37.0451765Z [warning]Path Validation Error: Path(s) specified in the action for caching do(es) not exist, hence no cache is being saved.
+2026-09-30T09:23:37.0544635Z Post job cleanup.
+2026-09-30T09:23:37.1797654Z (node:5104) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T09:23:37.1798642Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T09:23:37.1988713Z Post job cleanup.
+2026-09-30T09:23:37.2987887Z [command]/usr/bin/git version
+2026-09-30T09:23:37.3016361Z git version 2.55.0
+2026-09-30T09:23:37.3133829Z Temporarily overriding HOME='/home/runner/work/_temp/5a5b7970-bdc1-45c7-bd73-e67f040624ae' before making global git config changes
+2026-09-30T09:23:37.3135677Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-30T09:23:37.3137177Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/murmur/murmur
+2026-09-30T09:23:37.3139589Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-30T09:23:37.3141905Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-30T09:23:37.3331705Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-30T09:23:37.3354922Z http.https://github.com/.extraheader
+2026-09-30T09:23:37.3365635Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-30T09:23:37.3397012Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-30T09:23:37.3609274Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-30T09:23:37.3634927Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-30T09:23:37.3979513Z Cleaning up orphan processes
+2026-09-30T09:23:37.4397314Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache/save@v4, actions/cache@v4, actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
