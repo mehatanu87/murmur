@@ -1,14 +1,19 @@
 import { CompiledContract } from "@midnight-ntwrk/midnight-js-protocol/compact-js";
-import { Contract } from "./managed/murmur/contract/index.js";
+import * as ContractModule from "./managed/murmur/contract/index.js";
 import { witnesses } from "./witnesses.js";
 
 export * from "./managed/murmur/contract/index.js";
 export * from "./witnesses.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-class ContractWrapper extends Contract<any, any> {
+class ContractWrapper {
   constructor() {
-    super(witnesses);
+    const ContractClass = ContractModule.Contract || (ContractModule as any).default?.Contract;
+    if (!ContractClass) {
+      console.error("ContractModule keys:", Object.keys(ContractModule));
+      throw new Error("Contract class not found in generated module.");
+    }
+    return new ContractClass(witnesses);
   }
 }
 
