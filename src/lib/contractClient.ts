@@ -85,6 +85,52 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
     throw new Error(errMsg);
   }
 
+  let shieldedCoinPk = "0000000000000000000000000000000000000000000000000000000000000000";
+  let shieldedEncPk = "0000000000000000000000000000000000000000000000000000000000000000";
+  try {
+    if (typeof anyWallet.getShieldedAddresses === 'function') {
+      const addresses = await anyWallet.getShieldedAddresses();
+      const first = Array.isArray(addresses) ? addresses[0] : addresses;
+      if (first?.shieldedCoinPublicKey) shieldedCoinPk = first.shieldedCoinPublicKey;
+      if (first?.shieldedEncryptionPublicKey) shieldedEncPk = first.shieldedEncryptionPublicKey;
+    }
+  } catch (e) {
+    console.warn("Could not retrieve shielded addresses:", e);
+  }
+
+  const walletProvider = {
+    getCoinPublicKey: () => shieldedCoinPk,
+    getEncryptionPublicKey: () => shieldedEncPk,
+    balanceTx: async (tx: any) => {
+      const { toHex, fromHex } = await import("@midnight-ntwrk/midnight-js-utils");
+      const { Transaction } = await import("@midnight-ntwrk/midnight-js-protocol/ledger");
+      const serializedTx = toHex(tx.serialize());
+      if (typeof anyWallet.balanceUnsealedTransaction === 'function') {
+        const received = await anyWallet.balanceUnsealedTransaction(serializedTx);
+        return Transaction.deserialize('signature', 'proof', 'binding', fromHex(received.tx));
+      }
+      throw new Error("Wallet does not support balanceUnsealedTransaction");
+    }
+  };
+
+  const midnightProvider = {
+    submitTx: async (tx: any) => {
+      const { toHex } = await import("@midnight-ntwrk/midnight-js-utils");
+      const txHex = toHex(tx.serialize());
+      if (typeof anyWallet.submitTransaction === 'function') {
+        const res = await anyWallet.submitTransaction(txHex);
+        let returnedId = '';
+        if (typeof res === 'string' && res.length > 0) {
+          returnedId = res;
+        } else if (res && typeof res === 'object') {
+          returnedId = res.txHash || res.hash || res.id || '';
+        }
+        return returnedId;
+      }
+      throw new Error("Wallet does not support submitTransaction");
+    }
+  };
+
   const providers = {
     publicDataProvider: indexerPublicDataProvider(serviceUris.indexerUri, serviceUris.indexerUri.replace(/^http/, 'ws')),
     zkConfigProvider: new FetchZkConfigProvider(window.location.origin, window.fetch.bind(window)),
@@ -95,9 +141,9 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
       accountId: "guest-session",
     }),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    walletProvider: params.wallet as any,
+    walletProvider: walletProvider as any,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    midnightProvider: params.wallet as any,
+    midnightProvider: midnightProvider as any,
   };
 
   const initialPrivateState = createMurmurPrivateState(secretBytes, guestAccessPath);
