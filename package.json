@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh && ~/.local/bin/compact update 0.31.0 && ~/.local/bin/compact compile contracts/murmur.compact src/lib/murmur-contract/managed/murmur && tsc -b && vite build",
+    "build": "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh && ~/.local/bin/compact update 0.31.0 && ~/.local/bin/compact compile contracts/murmur.compact src/lib/murmur-contract/managed/murmur && tsc -b && mkdir -p public && cp -r src/lib/murmur-contract/managed/murmur/keys public/ && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
