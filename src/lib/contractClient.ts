@@ -5,11 +5,12 @@
 import deployedContract from "../../deployed_contract.json";
 import { WalletApi } from "./midnightWallet";
 import { findDeployedContract } from "@midnight-ntwrk/midnight-js-contracts";
-import { CompiledMurmurContractContract, createMurmurPrivateState } from "./murmur-contract/managed/murmur/contract/index";
+import { murmurContract } from "./murmur-contract/managed/murmur/contract/index";
+import { createMurmurPrivateState } from "./murmur-contract/managed/murmur/contract/witnesses";
 import { indexerPublicDataProvider } from "@midnight-ntwrk/midnight-js-indexer-public-data-provider";
 import { httpClientProofProvider } from "@midnight-ntwrk/midnight-js-http-client-proof-provider";
 import { levelPrivateStateProvider } from "@midnight-ntwrk/midnight-js-level-private-state-provider";
-import { fetchZkConfigProvider } from "@midnight-ntwrk/midnight-js-fetch-zk-config-provider";
+import { FetchZkConfigProvider } from "@midnight-ntwrk/midnight-js-fetch-zk-config-provider";
 
 export interface DeploymentInfo {
   network: string;
@@ -64,7 +65,7 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
 
   const providers = {
     publicDataProvider: indexerPublicDataProvider(serviceUris.indexerUri, serviceUris.indexerUri.replace(/^http/, 'ws')),
-    zkConfigProvider: fetchZkConfigProvider(window.location.origin),
+    zkConfigProvider: new FetchZkConfigProvider(window.location.origin),
     proofProvider: httpClientProofProvider(serviceUris.proverServerUri),
     privateStateProvider: levelPrivateStateProvider({
       privateStateStoreName: 'murmur-state',
@@ -82,7 +83,7 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
   
   const deployed = await findDeployedContract(providers, {
     contractAddress,
-    compiledContract: CompiledMurmurContractContract,
+    compiledContract: murmurContract,
     privateStateId: "murmur",
     initialPrivateState,
   });
