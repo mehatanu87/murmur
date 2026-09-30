@@ -1,0 +1,8 @@
+node_modules
+dist
+managed/*
+!managed/.gitkeep
+.env
+.env.local
+*.log
+.DS_Store

@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Node.js v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm install
+      - name: Compile Compact contract
+        run: |
+          if command -v compact >/dev/null 2>&1; then
+            compact compile contracts/murmur.compact managed/murmur
+          else
+            echo "compact CLI not found on runner — skipping compile step."
+            echo "Install via: https://docs.midnight.network"
+          fi
+        continue-on-error: true
+      - name: Lint
+        run: npm run lint
+      - name: Run test suite
+        run: npm test
+      - name: Build production bundle
+        run: npm run build

@@ -1,0 +1,6 @@
+{
+  "network": "preprod",
+  "address": null,
+  "deployedAt": null,
+  "note": "Populate this after running `compact compile` and deploying murmur.compact to Preprod. The app refuses to simulate transactions when this is null."
+}

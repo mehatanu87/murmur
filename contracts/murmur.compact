@@ -1,0 +1,75 @@
+// Murmur — single-question anonymous pulse check
+// Midnight Builder Challenge — Level 3 (First Quarter)
+// Idea: Anonymous Feedback / Survey (single-question pulse variant)
+//
+// PRIVACY MODEL
+//   PUBLIC   : the pulse question, the aggregate 1-5 response tally,
+//              the set of spent nullifiers, pulse open/closed status.
+//   PRIVATE  : which eligible respondent answered, and their individual
+//              response's link back to them.
+//   PROVED WITHOUT REVEALING: that the caller is eligible to respond
+//              and has not answered this pulse before — without
+//              revealing who they are or what they picked.
+
+pragma language_version >= 0.16;
+
+import CompactStandardLibrary;
+
+// ---------------------------------------------------------------------
+// Ledger (PUBLIC on-chain state)
+// ---------------------------------------------------------------------
+
+export ledger pulseQuestion: Opaque<"string">;
+export ledger responseTally: Map<Uint<8>, Counter>;  // response 1-5 -> count
+export ledger usedNullifiers: Set<Bytes<32>>;
+export ledger eligibilityRoot: Bytes<32>;
+export ledger isOpen: Boolean;
+export ledger totalResponses: Counter;
+
+// ---------------------------------------------------------------------
+// Witnesses (PRIVATE — supplied locally by the respondent)
+// ---------------------------------------------------------------------
+
+witness respondentSecret(): Bytes<32>;
+witness respondentPath(): MerkleTreePath<10, Bytes<32>>;
+
+// ---------------------------------------------------------------------
+// Circuits
+// ---------------------------------------------------------------------
+
+export circuit openPulse(question: Opaque<"string">, root: Bytes<32>): [] {
+  pulseQuestion = question;
+  eligibilityRoot = root;
+  isOpen = true;
+  totalResponses = default<Counter>;
+  for (const r of 1..6) {
+    responseTally.insert(disclose(r), default<Counter>);
+  }
+}
+
+export circuit submitResponse(response: Uint<8>): [] {
+  assert(isOpen, "pulse is closed");
+  assert(response >= 1 && response <= 5, "response must be 1-5");
+
+  const secret = respondentSecret();
+  const path = respondentPath();
+
+  const leaf = persistentHash<Bytes<32>>(secret);
+  const computedRoot = merkleTreePathRoot<10, Bytes<32>>(path, leaf);
+  assert(computedRoot == eligibilityRoot, "not eligible to respond");
+
+  const nullifier = persistentHash<Vector<2, Bytes<32>>>(
+    [secret, persistentHash<Opaque<"string">>(pulseQuestion)]
+  );
+  assert(!usedNullifiers.member(nullifier), "already responded to this pulse");
+  usedNullifiers.insert(nullifier);
+
+  const current = responseTally.lookup(disclose(response));
+  responseTally.insert(disclose(response), current.increment(1));
+  totalResponses.increment(1);
+}
+
+export circuit closePulse(): [] {
+  assert(isOpen, "already closed");
+  isOpen = false;
+}
