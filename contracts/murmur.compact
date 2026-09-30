@@ -37,10 +37,6 @@ witness respondentPath(): MerkleTreePath<10, Bytes<32>>;
 // Circuits
 // ---------------------------------------------------------------------
 
-export pure function hashSecret(secret: Bytes<32>): Bytes<32> {
-  return persistentHash<Bytes<32>>(secret);
-}
-
 export circuit openPulse(question: Opaque<"string">, root: Bytes<32>): [] {
   pulseQuestion = question;
   eligibilityRoot = root;
