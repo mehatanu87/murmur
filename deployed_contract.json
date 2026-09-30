@@ -1,6 +1,6 @@
 {
   "network": "preprod",
-  "address": null,
-  "deployedAt": null,
+  "address": "b3cc0b29ca263099b168b6da1b68e1fd3026fb3db455674b90d625be9a06e365",
+  "deployedAt": "2026-09-30T06:42:00.000Z",
   "note": "Populate this after running `compact compile` and deploying murmur.compact to Preprod. The app refuses to simulate transactions when this is null."
 }
