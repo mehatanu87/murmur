@@ -6,7 +6,8 @@ export interface InjectedWallet {
   name: string;
   apiVersion: string;
   isEnabled: () => Promise<boolean>;
-  enable: () => Promise<WalletApi>;
+  enable?: () => Promise<WalletApi>;
+  connect?: (networkId?: string) => Promise<WalletApi>;
 }
 
 export interface WalletApi {
@@ -40,8 +41,56 @@ export async function connectWallet(walletId?: string): Promise<{
   const target = walletId ? wallets.find((w) => w.id === walletId) : wallets[0];
   if (!target) throw new Error("The requested wallet is not installed.");
 
-  const api = await target.wallet.enable();
-  const state = await api.state();
+  const api = target.wallet.connect
+    ? await target.wallet.connect('preprod')
+    : await target.wallet.enable?.();
+  
+  if (!api) {
+    throw new Error("Wallet connection failed.");
+  }
+
+  let address = "";
+  try {
+    type ShieldedAddress = { shieldedCoinPublicKey?: string; coinPublicKey?: string } | string;
+    type ExtendedApi = WalletApi & {
+      getPublicKeys?: () => Promise<{ coinPublicKey: string }>;
+      coinPublicKey?: string;
+      getShieldedAddresses?: () => Promise<ShieldedAddress[] | ShieldedAddress>;
+    };
+    const extApi = api as ExtendedApi;
+
+    if (typeof extApi.getPublicKeys === 'function') {
+      const keys = await extApi.getPublicKeys();
+      address = keys?.coinPublicKey ?? "";
+    } else if (extApi.coinPublicKey) {
+      address = extApi.coinPublicKey;
+    } else if (typeof api.state === 'function') {
+      const state = await api.state();
+      address = state.address;
+    }
+    
+    if (!address && typeof extApi.getShieldedAddresses === 'function') {
+      const shield = await extApi.getShieldedAddresses();
+      if (shield && Array.isArray(shield) && shield.length > 0) {
+        const item = shield[0];
+        if (typeof item === 'string') {
+          address = item;
+        } else {
+          address = item.shieldedCoinPublicKey || item.coinPublicKey || "";
+        }
+      } else if (shield) {
+        const item = shield as ShieldedAddress;
+        if (typeof item === 'string') {
+          address = item;
+        } else {
+          address = item.shieldedCoinPublicKey || item.coinPublicKey || "";
+        }
+      }
+    }
+  } catch (e) {
+    console.warn("Failed to extract address:", e);
+  }
+
   const serviceUriConfig = api.serviceUriConfig ? await api.serviceUriConfig() : undefined;
-  return { address: state.address, walletName: target.wallet.name, api, serviceUriConfig };
+  return { address, walletName: target.wallet.name, api, serviceUriConfig };
 }
