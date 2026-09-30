@@ -5,7 +5,7 @@
 import deployedContract from "../../deployed_contract.json";
 import { WalletApi } from "./midnightWallet";
 import { findDeployedContract } from "@midnight-ntwrk/midnight-js-contracts";
-import { CompiledMurmurContractContract, createMurmurPrivateState } from "./murmur-contract/index";
+import { CompiledMurmurContractContract, createMurmurPrivateState } from "./murmur-contract/managed/murmur/contract/index";
 import { indexerPublicDataProvider } from "@midnight-ntwrk/midnight-js-indexer-public-data-provider";
 import { httpClientProofProvider } from "@midnight-ntwrk/midnight-js-http-client-proof-provider";
 import { levelPrivateStateProvider } from "@midnight-ntwrk/midnight-js-level-private-state-provider";
