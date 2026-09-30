@@ -1,27 +1,4 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "services": {
-    "app": {
-      "root": ".",
-      "framework": "vite"
-    },
-    "web-boilerplate": {
-      "root": "preprod-deployment/web",
-      "framework": "nextjs"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/boilerplate/(.*)",
-      "destination": {
-        "service": "web-boilerplate"
-      }
-    },
-    {
-      "source": "/(.*)",
-      "destination": {
-        "service": "app"
-      }
-    }
-  ]
+  "framework": "vite"
 }
