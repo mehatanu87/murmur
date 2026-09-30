@@ -159,7 +159,7 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
     initialPrivateState,
   });
 
-  const txData = await deployed.callTx.submitResponse(params.response);
+  const txData = await deployed.callTx.submitResponse(BigInt(params.response));
 
   return {
     txHash: txData.public.txHash,
