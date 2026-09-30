@@ -2,7 +2,6 @@ import { WebSocket } from 'ws';
 globalThis.WebSocket = WebSocket as unknown as typeof globalThis.WebSocket;
 
 import fs from 'node:fs';
-import path from 'node:path';
 import { PreprodRemoteConfig } from '../config.js';
 import { MidnightWalletProvider } from '../midnight-wallet-provider.js';
 import { NodeZkConfigProvider } from '@midnight-ntwrk/midnight-js-node-zk-config-provider';
@@ -10,7 +9,7 @@ import { indexerPublicDataProvider } from '@midnight-ntwrk/midnight-js-indexer-p
 import { httpClientProofProvider } from '@midnight-ntwrk/midnight-js-http-client-proof-provider';
 import { levelPrivateStateProvider } from '@midnight-ntwrk/midnight-js-level-private-state-provider';
 import { deployContract } from '@midnight-ntwrk/midnight-js-contracts';
-import { CompiledBBoardContractContract } from '@midnight-ntwrk/bboard-contract';
+import { CompiledMurmurContractContract } from '@midnight-ntwrk/murmur-contract';
 import { createLogger } from '../logger-utils.js';
 import { getUnshieldedAddress } from '../wallet-utils.js';
 import { generateDust } from '../generate-dust.js';
