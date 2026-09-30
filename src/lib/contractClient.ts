@@ -37,7 +37,7 @@ export interface TxResult {
 
 export async function submitResponse(params: SubmitResponseParams): Promise<TxResult> {
   const { setNetworkId } = await import("@midnight-ntwrk/midnight-js-network-id");
-  setNetworkId("TestNet");
+  setNetworkId("preprod");
 
   if (!isDeployed()) {
     throw new Error("No contract is deployed yet. Run `compact compile`, deploy to Preprod, and fill in deployed_contract.json.");
