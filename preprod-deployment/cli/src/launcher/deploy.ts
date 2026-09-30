@@ -146,11 +146,9 @@ async function main() {
 
     const deployed = await deployContract(providers, {
         compiledContract: CompiledMurmurContractContract,
-        args: []
+        args: ["How was the Midnight demo?", pulseId, initialRoot]
     });
 
-    console.log("Opening pulse on-chain...");
-    await deployed.circuits.openPulse("How was the Midnight demo?", pulseId, initialRoot);
     const contractAddress = deployed.deployTxData.public.contractAddress;
     console.log("================================================================================");
     console.log("🎉 SUCCESS! CONTRACT DEPLOYED TO PREPROD!");

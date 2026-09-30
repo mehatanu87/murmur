@@ -39,7 +39,7 @@ witness respondentPath(): MerkleTreePath<10, Bytes<32>>;
 
 export ledger pulseId: Bytes<32>;
 
-export circuit openPulse(question: Opaque<"string">, id: Bytes<32>, root: Bytes<32>): [] {
+export circuit constructor(question: Opaque<"string">, id: Bytes<32>, root: Bytes<32>): [] {
   pulseQuestion = disclose(question);
   pulseId = disclose(id);
   eligibilityRoot = disclose(root);
