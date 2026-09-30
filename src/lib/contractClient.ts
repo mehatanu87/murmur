@@ -101,7 +101,7 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
   const walletProvider = {
     getCoinPublicKey: () => shieldedCoinPk,
     getEncryptionPublicKey: () => shieldedEncPk,
-    balanceTx: async (tx: any) => {
+    balanceTx: async (tx: { serialize: () => Uint8Array }) => {
       const { toHex, fromHex } = await import("@midnight-ntwrk/midnight-js-utils");
       const { Transaction } = await import("@midnight-ntwrk/midnight-js-protocol/ledger");
       const serializedTx = toHex(tx.serialize());
@@ -114,7 +114,7 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
   };
 
   const midnightProvider = {
-    submitTx: async (tx: any) => {
+    submitTx: async (tx: { serialize: () => Uint8Array }) => {
       const { toHex } = await import("@midnight-ntwrk/midnight-js-utils");
       const txHex = toHex(tx.serialize());
       if (typeof anyWallet.submitTransaction === 'function') {
