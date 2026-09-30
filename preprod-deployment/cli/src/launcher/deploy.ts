@@ -69,21 +69,22 @@ async function main() {
     console.warn(`generateDust warning: ${e?.message}`);
   }
 
-  // Wait up to 5 min for any DUST (skip full block scan)
-  console.log("Waiting up to 5 minutes for DUST to accrue...");
+  // Wait up to 30 min for DUST — registration is in a recent block (~1.5M)
+  // The wallet must scan through all blocks to find it. At ~15K blocks/5s, needs ~8-15 min.
+  console.log("Waiting up to 30 minutes for DUST wallet to scan to registration block...");
   try {
     const dustBalance = await Rx.firstValueFrom(
       walletProvider.wallet.state().pipe(
-        Rx.throttleTime(5000),
-        Rx.tap((s: any) => console.log(`DUST balance: ${s.dust.balance(new Date())}`)),
+        Rx.throttleTime(30000),
+        Rx.tap((s: any) => console.log(`[DUST scan] balance: ${s.dust.balance(new Date())}`)),
         Rx.filter((s: any) => s.dust.balance(new Date()) > 0n),
         Rx.map((s: any) => s.dust.balance(new Date())),
-        Rx.timeout(300000),
+        Rx.timeout(1800000), // 30 minutes
       )
     );
     console.log(`DUST ready: ${dustBalance}`);
   } catch {
-    console.warn("DUST not available within 5 min — attempting deploy anyway...");
+    console.warn("DUST not found after 30 min — attempting deploy anyway...");
   }
 
   console.log("Initializing providers...");
@@ -142,8 +143,8 @@ async function main() {
     } catch (err: any) {
       console.error(`Attempt ${attempt} failed:`, err?.message ?? err);
       if (attempt < MAX_RETRIES) {
-        console.log(`Retrying in 30 seconds...`);
-        await new Promise(resolve => setTimeout(resolve, 30000));
+        console.log(`Retrying in 5 minutes...`);
+        await new Promise(resolve => setTimeout(resolve, 300000)); // 5 minutes
       }
     }
   }
