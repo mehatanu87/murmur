@@ -146,7 +146,7 @@ async function main() {
 
     const deployed = await deployContract(providers, {
         compiledContract: CompiledMurmurContractContract,
-        args: ["How was the Midnight demo?", pulseId, initialRoot]
+        args: [pulseId, initialRoot]
     });
 
     const contractAddress = deployed.deployTxData.public.contractAddress;
