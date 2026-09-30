@@ -71,7 +71,9 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
       privateStoragePasswordProvider: () => "guest-pass123",
       accountId: "guest-session",
     }),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     walletProvider: params.wallet as any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     midnightProvider: params.wallet as any,
   };
 
