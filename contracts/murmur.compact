@@ -53,7 +53,7 @@ export circuit submitResponse(response: Uint<8>): [] {
   const leaf = persistentHash<Bytes<32>>(secret);
   assert(path.leaf == leaf, "path leaf does not match secret");
   const computedRoot = merkleTreePathRoot<10, Bytes<32>>(path);
-  assert(computedRoot == eligibilityRoot, "not eligible to respond");
+  assert((computedRoot as Bytes<32>) == eligibilityRoot, "not eligible to respond");
 
   const nullifier = persistentHash<Vector<2, Bytes<32>>>(
     [secret, persistentHash<Opaque<"string">>(pulseQuestion)]
