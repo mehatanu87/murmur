@@ -2,13 +2,15 @@
 ![CI](https://github.com/YOUR_USERNAME/murmur/actions/workflows/ci.yml/badge.svg)
 > Single-question anonymous pulse checks. Built on Midnight.
 
-## Live Demo
-[LIVE URL — add after deploying, e.g. Vercel/Netlify]
+## Demo Video
+[Watch the 1-minute demo video on Google Drive](https://drive.google.com/file/d/1np10ZW26C3P76MNIuVjhgPXL5Ml2PDzv/view?usp=sharing)
 
 ## Contract Address
 | Network  | Address                          |
 |----------|-----------------------------------|
 | Preprod  | [`b8e3ad1dedd7ef53c22545ba10b3e6a3dae01041ff72429d9fe85f59a520430b`](https://preprod.midnightexplorer.com/contracts/0xb8e3ad1dedd7ef53c22545ba10b3e6a3dae01041ff72429d9fe85f59a520430b) |
+
+![Contract Onchain](screenshots/contract%20onchain.png)
 
 ## What This Does
 Murmur asks one question at a time and takes a 1-5 response from any
@@ -16,12 +18,7 @@ eligible, un-reused respondent. It's built for the moment right after
 a talk, workshop, or meeting — quick enough to answer in five seconds,
 with nothing that traces the answer back to whoever gave it.
 
-## No mock data — architecture note
-This build has **no local ledger simulator**. `src/lib/contractClient.ts`
-refuses to fabricate a transaction result: every action either goes
-through a connected wallet against a real deployed contract, or the UI
-tells you plainly that nothing is deployed yet. See docs/USAGE.md for
-the exact steps to wire it up to a live Preprod deployment.
+![Product UI](screenshots/product%20ui.png)
 
 ## Privacy Model
 - **PUBLIC:** the pulse question, the aggregate 1-5 tally, the set of
@@ -66,6 +63,8 @@ simulating one.
 ```
 npm test
 ```
+
+![Test Output](screenshots/tets%20output.png)
 
 ## CI/CD
 On every push and pull request to `main`, the GitHub Actions pipeline
