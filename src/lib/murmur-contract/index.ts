@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 import { CompiledContract } from "@midnight-ntwrk/midnight-js-protocol/compact-js";
 
 export * from "./managed/murmur/contract/index.js";
