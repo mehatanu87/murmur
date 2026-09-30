@@ -40,9 +40,9 @@ witness respondentPath(): MerkleTreePath<10, Bytes<32>>;
 export ledger pulseId: Bytes<32>;
 
 export circuit openPulse(question: Opaque<"string">, id: Bytes<32>, root: Bytes<32>): [] {
-  pulseQuestion = question;
-  pulseId = id;
-  eligibilityRoot = root;
+  pulseQuestion = disclose(question);
+  pulseId = disclose(id);
+  eligibilityRoot = disclose(root);
   isOpen = true;
 }
 
@@ -61,8 +61,8 @@ export circuit submitResponse(response: Uint<8>): [] {
   const nullifier = persistentHash<Vector<2, Bytes<32>>>(
     [secret, pulseId]
   );
-  assert(!usedNullifiers.member(nullifier), "already responded to this pulse");
-  usedNullifiers.insert(nullifier);
+  assert(!usedNullifiers.member(disclose(nullifier)), "already responded to this pulse");
+  usedNullifiers.insert(disclose(nullifier));
 
   const current = responseTally.lookup(disclose(response));
   responseTally.insert(disclose(response), (current + 1) as Uint<64>);
