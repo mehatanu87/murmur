@@ -45,22 +45,46 @@ async function main() {
   const walletAddress = await getUnshieldedAddress(logger, walletProvider.wallet);
   console.log(`Wallet Address: ${walletAddress}`);
 
-  console.log("Getting wallet state snapshot (no full sync)...");
-  // Use a 15s snapshot instead of waiting for full sync
+  console.log("Syncing unshielded wallet (fast — needed for tNIGHT balance)...");
   let unshieldedState: any;
   try {
-    unshieldedState = await Rx.firstValueFrom(
-      walletProvider.wallet.unshielded.state.pipe(Rx.timeout(15000))
-    );
+    unshieldedState = await walletProvider.wallet.unshielded.waitForSyncedState();
   } catch {
-    console.warn("Could not get unshielded state snapshot, using empty state.");
+    console.warn("Unshielded sync failed, using empty state.");
     unshieldedState = { balances: {} };
   }
   const nightBalance = unshieldedState.balances[unshieldedToken().raw] ?? 0n;
-  console.log(`Wallet tNIGHT balance (snapshot): ${nightBalance}`);
+  console.log(`Current tNIGHT balance: ${nightBalance}`);
 
-  // Skip ALL DUST sync — attempt deployment directly
-  console.log("Skipping DUST sync. Deploying contract directly...");
+  // Register tNIGHT for DUST generation (required for tx fees)
+  console.log("Registering DUST generation...");
+  try {
+    const dustTx = await generateDust(logger, seed, unshieldedState, walletProvider.wallet);
+    if (dustTx) {
+      console.log(`DUST generation registered: ${dustTx}`);
+    } else {
+      console.log("DUST already registered.");
+    }
+  } catch (e: any) {
+    console.warn(`generateDust warning: ${e?.message}`);
+  }
+
+  // Wait up to 5 min for any DUST (skip full block scan)
+  console.log("Waiting up to 5 minutes for DUST to accrue...");
+  try {
+    const dustBalance = await Rx.firstValueFrom(
+      walletProvider.wallet.state().pipe(
+        Rx.throttleTime(5000),
+        Rx.tap((s: any) => console.log(`DUST balance: ${s.dust.balance(new Date())}`)),
+        Rx.filter((s: any) => s.dust.balance(new Date()) > 0n),
+        Rx.map((s: any) => s.dust.balance(new Date())),
+        Rx.timeout(300000),
+      )
+    );
+    console.log(`DUST ready: ${dustBalance}`);
+  } catch {
+    console.warn("DUST not available within 5 min — attempting deploy anyway...");
+  }
 
   console.log("Initializing providers...");
   const zkConfigProvider = new NodeZkConfigProvider(config.zkConfigPath);
