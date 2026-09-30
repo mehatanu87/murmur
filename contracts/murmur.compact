@@ -20,11 +20,11 @@ import CompactStandardLibrary;
 // ---------------------------------------------------------------------
 
 export ledger pulseQuestion: Opaque<"string">;
-export ledger responseTally: Map<Uint<8>, Counter>;  // response 1-5 -> count
+export ledger responseTally: Map<Uint<8>, Uint<64>>;  // response 1-5 -> count
 export ledger usedNullifiers: Set<Bytes<32>>;
 export ledger eligibilityRoot: Bytes<32>;
 export ledger isOpen: Boolean;
-export ledger totalResponses: Counter;
+export ledger totalResponses: Uint<64>;
 
 // ---------------------------------------------------------------------
 // Witnesses (PRIVATE — supplied locally by the respondent)
@@ -65,8 +65,8 @@ export circuit submitResponse(response: Uint<8>): [] {
   usedNullifiers.insert(nullifier);
 
   const current = responseTally.lookup(disclose(response));
-  responseTally.insert(disclose(response), current.increment(1));
-  totalResponses.increment(1);
+  responseTally.insert(disclose(response), current + 1);
+  totalResponses = totalResponses + 1;
 }
 
 export circuit closePulse(): [] {
