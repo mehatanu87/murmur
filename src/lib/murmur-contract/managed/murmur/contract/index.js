@@ -496,7 +496,24 @@ export class Contract {
                                                  value: __compactRuntime.StateValue.newNull().encode() } },
                                        { ins: { cached: false, n: 1 } },
                                        { ins: { cached: true, n: 1 } }]);
-    const current_0 = _descriptor_8.fromValue(__compactRuntime.queryLedgerState(context,
+    const current_0 = _descriptor_0.fromValue(__compactRuntime.queryLedgerState(context,
+                                                                                partialProofData,
+                                                                                [
+                                                                                 { dup: { n: 0 } },
+                                                                                 { idx: { cached: false,
+                                                                                          pushPath: false,
+                                                                                          path: [
+                                                                                                 { tag: 'value',
+                                                                                                   value: { value: _descriptor_7.toValue(0n),
+                                                                                                            alignment: _descriptor_7.alignment() } }] } },
+                                                                                 { push: { storage: false,
+                                                                                           value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(response_0),
+                                                                                                                                        alignment: _descriptor_7.alignment() }).encode() } },
+                                                                                 'member',
+                                                                                 { popeq: { cached: true,
+                                                                                            result: undefined } }]).value)
+                      ?
+                      _descriptor_8.fromValue(__compactRuntime.queryLedgerState(context,
                                                                                 partialProofData,
                                                                                 [
                                                                                  { dup: { n: 0 } },
@@ -513,7 +530,9 @@ export class Contract {
                                                                                                    value: { value: _descriptor_7.toValue(response_0),
                                                                                                             alignment: _descriptor_7.alignment() } }] } },
                                                                                  { popeq: { cached: false,
-                                                                                            result: undefined } }]).value);
+                                                                                            result: undefined } }]).value)
+                      :
+                      0n;
     const tmp_0 = ((t1) => {
                     if (t1 > 18446744073709551615n) {
                       throw new __compactRuntime.CompactError('murmur.compact line 66 char 44: cast from Field or Uint value to smaller Uint value failed: ' + t1 + ' is greater than 18446744073709551615');

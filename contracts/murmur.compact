@@ -62,7 +62,7 @@ export circuit submitResponse(response: Uint<8>): [] {
   assert(!usedNullifiers.member(disclose(nullifier)), "already responded to this pulse");
   usedNullifiers.insert(disclose(nullifier));
 
-  const current = responseTally.lookup(disclose(response));
+  const current = responseTally.member(disclose(response)) ? responseTally.lookup(disclose(response)) : 0 as Uint<64>;
   responseTally.insert(disclose(response), (current + 1) as Uint<64>);
   totalResponses = (totalResponses + 1) as Uint<64>;
 }
