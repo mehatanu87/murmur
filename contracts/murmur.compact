@@ -41,10 +41,6 @@ export circuit openPulse(question: Opaque<"string">, root: Bytes<32>): [] {
   pulseQuestion = question;
   eligibilityRoot = root;
   isOpen = true;
-  totalResponses = default<Counter>;
-  for (const r of 1..6) {
-    responseTally.insert(disclose(r), default<Counter>);
-  }
 }
 
 export circuit submitResponse(response: Uint<8>): [] {
