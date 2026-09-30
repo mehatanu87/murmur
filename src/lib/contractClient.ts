@@ -55,8 +55,10 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
   // We deployed with an empty root to allow an open pulse check.
   const guestAccessPath = {
     leaf: secretBytes,
-    path: Array.from({ length: 10 }, () => new Uint8Array(32)), // 10 levels
-    directions: Array.from({ length: 10 }, () => false) // all left
+    path: Array.from({ length: 10 }, () => ({
+      sibling: { field: 0n },
+      goes_left: false
+    }))
   };
 
   // Get service URLs from wallet
@@ -159,10 +161,17 @@ export async function submitResponse(params: SubmitResponseParams): Promise<TxRe
     initialPrivateState,
   });
 
-  const txData = await deployed.callTx.submitResponse(BigInt(params.response));
+  try {
+    console.log("Submitting transaction to Midnight network...");
+    const txData = await deployed.callTx.submitResponse(BigInt(params.response));
+    console.log("Transaction submitted successfully!", txData);
 
-  return {
-    txHash: txData.public.txHash,
-    explorerUrl: `https://preprod.midnight.network/transaction/${txData.public.txHash}`,
-  };
+    return {
+      txHash: txData.public.txHash,
+      explorerUrl: `https://preprod.midnight.network/transaction/${txData.public.txHash}`,
+    };
+  } catch (error) {
+    console.error("Failed to submit transaction to Midnight:", error);
+    throw error;
+  }
 }
